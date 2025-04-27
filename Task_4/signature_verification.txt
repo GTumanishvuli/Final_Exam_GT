@@ -1,0 +1,36 @@
+# Email Signature Verification Process
+
+## What is Digital Signature Verification?
+
+this is process based on cryptography which confirms:
+1. That this message was sent by known sender (for authentication)
+2. Message wasn't changed after signing (for integrity)
+
+## How the Verification Works
+
+1. Signing by Alice:
+   - creates a hash (digest) of message
+   - encrypts hash with her private key, and creats signature
+   - sends message and signature to Bob
+
+2. Verification by Bob:
+   - receives message and signature
+   - creates hash of message using same algorithm
+   - decrypts signature using Alice's public key to get original hash
+   - compares two hashes
+
+3. Verification Result:
+   - when hashes match: it means message is authentic and unaltered
+   - when hashes don't match: message has been tampered or wasn't sent by Alice
+
+OpenSSL implementation:
+- I used SHA-256 for the hashing algorithm
+- I used RSA 2048-bit keys for the public/private key pair
+- verification command: `openssl dgst -sha256 -verify alice_public.key -signature signature.sign decrypted_message.txt`
+
+verification process ensures:
+- Identity: Only Alice could have created this signature 
+- Non-repudiation: Alice cannot deny having that sent message
+- Integrity: message was not modified in transit
+
+Asymmetric cryptography ensures that data encrypted with Alice's private key can only decrypted with her public key. Only Alice has access to her private key, a successful verification proves that Alice signed message.
