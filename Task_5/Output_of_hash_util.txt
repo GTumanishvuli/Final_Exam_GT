@@ -1,0 +1,5 @@
+Checking file integrity...
+[WARNING] SHA-256 hash mismatch!
+[WARNING] SHA-1 hash mismatch!
+[WARNING] MD5 hash mismatch!
+[FAIL] Integrity check failed.
